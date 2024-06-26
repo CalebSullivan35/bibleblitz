@@ -1,4 +1,4 @@
-import { BibleBook } from "~/app/types/biblebooks";
+import { type BibleBook } from "~/app/types/biblebooks";
 
 export const booksOfTheBible: BibleBook[] = [
   { name: "Genesis", Testament: "Old" },
