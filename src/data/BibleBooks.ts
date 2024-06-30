@@ -68,3 +68,9 @@ export const booksOfTheBible: BibleBook[] = [
   { name: "Jude", Testament: "New" },
   { name: "Revelation", Testament: "New" },
 ];
+
+export const fakeBibkeBooks: BibleBook[] = [
+  { name: "1 Caleb", Testament: "Old" },
+  { name: "2 Caleb", Testament: "Old" },
+  { name: "Hezekiah", Testament: "Old" },
+];

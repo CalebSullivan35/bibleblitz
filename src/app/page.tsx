@@ -17,7 +17,7 @@ export default function HomePage() {
   useEffect(() => {
     const nextBook = getNextBook(book);
     setCorrectBook(nextBook);
-    setOptions(generateRandomOptionsWithCorrectAnswer(3, nextBook));
+    setOptions(generateRandomOptionsWithCorrectAnswer(3, nextBook, true));
     setSelectedOption(null);
   }, [book]);
 
