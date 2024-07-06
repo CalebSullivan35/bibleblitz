@@ -1,5 +1,7 @@
 import { booksOfTheBible, fakeBibkeBooks } from "~/data/BibleBooks";
 import { type BibleBook } from "../types/biblebooks";
+import { after, sampleSize, shuffle } from "lodash";
+import { Dispatch, SetStateAction } from "react";
 
 export function getRandomBibleBookName() {
   const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);
@@ -16,31 +18,51 @@ export function getNextBook(book: BibleBook) {
   return correctBook;
 }
 
-export function generateRandomOptionsWithCorrectAnswer(
+export function generateAllRandomOptions(
+  correctBook: BibleBook,
+  addFakeBooks: boolean,
+) {
+  const booksOfTheBiblewithoutAnswer = booksOfTheBible.filter(
+    (x) => x.name !== correctBook.name,
+  );
+
+  if (addFakeBooks) {
+    return [...booksOfTheBiblewithoutAnswer, ...fakeBibkeBooks];
+  }
+
+  return booksOfTheBiblewithoutAnswer;
+}
+
+export function getDisplayChoices(
   amount: number,
   correctBook: BibleBook,
   addFakeBooks: boolean,
 ) {
-  const randomOptions: BibleBook[] = [];
-  let possibleOptions: BibleBook[] = [];
-  if (!addFakeBooks) {
-    possibleOptions = booksOfTheBible.filter(
-      (x) => x.name !== correctBook.name,
-    );
-  } else if (addFakeBooks) {
-    possibleOptions = [...booksOfTheBible, ...fakeBibkeBooks].filter(
-      (x) => x.name !== correctBook.name,
-    );
-  }
+  const allWrongChoices = generateAllRandomOptions(correctBook, addFakeBooks);
+  const wrongChoices = sampleSize(allWrongChoices, amount);
+  const allChoicesWithCorrectChoice = shuffle([...wrongChoices, correctBook]);
+  return allChoicesWithCorrectChoice;
+}
 
-  while (randomOptions.length < amount) {
-    const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);
-    const [option] = possibleOptions.splice(randomIndex, 1);
-    if (option) {
-      randomOptions.push(option as BibleBook);
-    }
+export function trackScore(
+  correctAnswer: BibleBook,
+  selectedAnswer: BibleBook,
+  score: number,
+  setCurrentScore: Dispatch<SetStateAction<number>>,
+) {
+  if (correctAnswer.name === selectedAnswer.name) {
+    //look into why score++ didnt work.
+    setCurrentScore(score + 1);
+  } else if (correctAnswer.name !== selectedAnswer.name) {
+    setCurrentScore(0);
   }
-  const randomArrayIndex = Math.floor(Math.random() * randomOptions.length);
-  randomOptions.splice(randomArrayIndex, 0, correctBook);
-  return randomOptions;
+}
+
+export function newBookButtonCheckForAnswer(
+  selectedAnswer: BibleBook | null,
+  setCurrentScore: Dispatch<SetStateAction<number>>,
+) {
+  if (selectedAnswer === null) {
+    setCurrentScore(0);
+  }
 }
