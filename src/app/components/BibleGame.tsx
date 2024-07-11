@@ -27,13 +27,13 @@ export const BibleGame = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="absolute left-10 top-10 flex flex-col text-center text-3xl">
+      <div className="absolute left-10 top-10 flex flex-col text-center sm:text-3xl">
         <span>Current Streak!</span>
         <span>{currentScore}</span>
       </div>
-      <span className="text-6xl">{book.name}</span>
+      <span className="text-4xl sm:text-6xl">{book.name}</span>
       <div className="mb-6 flex flex-col items-center justify-center">
-        <span className="text-xl">What comes next?</span>
+        <span className="text-lg sm:text-xl">What comes next?</span>
         <GameFeedback
           selectedOption={selectedOption}
           correctBook={correctBook}
