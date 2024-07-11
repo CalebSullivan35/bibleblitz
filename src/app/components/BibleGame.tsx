@@ -27,7 +27,7 @@ export const BibleGame = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="absolute left-10 top-10 flex flex-col text-center sm:text-3xl">
+      <div className="absolute left-5 top-5 flex flex-col text-center sm:left-10 sm:top-10 sm:text-3xl">
         <span>Current Streak!</span>
         <span>{currentScore}</span>
       </div>
@@ -48,7 +48,7 @@ export const BibleGame = () => {
         setCurrentScore={setCurrentScore}
       />
       <button
-        className="rounded border bg-white p-2 text-black"
+        className="rounded border bg-white p-2 text-sm text-black sm:text-lg"
         onClick={() => {
           setBook(getRandomBibleBookName());
           setSelectedOption(null);

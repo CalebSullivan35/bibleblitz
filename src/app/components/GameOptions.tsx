@@ -23,7 +23,7 @@ export const GameOptions = ({
       {options.map((x, index) => (
         <span
           key={index}
-          className={`mx-2 cursor-pointer text-sm sm:mx-4 sm:text-xl ${
+          className={`text-md mx-2 cursor-pointer sm:mx-4 sm:text-2xl ${
             selectedOption
               ? x === selectedOption
                 ? x === correctBook

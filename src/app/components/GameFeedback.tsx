@@ -10,7 +10,7 @@ export const GameFeedback = ({
 }: GameFeedbackProps) => {
   return selectedOption !== null ? (
     <span
-      className={`${selectedOption === correctBook ? "text-green-400" : "text-red-500"}`}
+      className={`${selectedOption === correctBook ? "text-green-400" : "text-red-500"} sm:text-xl`}
     >
       {selectedOption === correctBook ? "Correct!" : "Wrong"}
     </span>
