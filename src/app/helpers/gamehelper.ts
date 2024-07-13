@@ -1,7 +1,7 @@
 import { booksOfTheBible, fakeBibkeBooks } from "~/data/BibleBooks";
 import { type BibleBook } from "../types/biblebooks";
-import { after, sampleSize, shuffle } from "lodash";
-import { Dispatch, SetStateAction } from "react";
+import { sampleSize, shuffle } from "lodash";
+import { type Dispatch, type SetStateAction } from "react";
 
 export function getRandomBibleBookName() {
   const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);

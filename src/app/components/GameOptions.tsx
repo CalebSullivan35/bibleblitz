@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { trackScore } from "../helpers/gamehelper";
-import { BibleBook } from "../types/biblebooks";
+import { type BibleBook } from "../types/biblebooks";
 interface GameOptionsProps {
   options: BibleBook[];
   selectedOption: BibleBook | null;
@@ -19,11 +19,11 @@ export const GameOptions = ({
   setCurrentScore,
 }: GameOptionsProps) => {
   return (
-    <div className="mx-2 mb-6 flex flex-row">
+    <div className=" mb-6 flex flex-row">
       {options.map((x, index) => (
         <span
           key={index}
-          className={`text-md mx-2 cursor-pointer sm:mx-4 sm:text-2xl ${
+          className={`mx-1 cursor-pointer text-xs min-[375px]:text-sm min-[450px]:text-base sm:mx-4 sm:text-2xl ${
             selectedOption
               ? x === selectedOption
                 ? x === correctBook

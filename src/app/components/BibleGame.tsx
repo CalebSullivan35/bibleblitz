@@ -7,7 +7,7 @@ import {
   getRandomBibleBookName,
   newBookButtonCheckForAnswer,
 } from "../helpers/gamehelper";
-import { BibleBook } from "../types/biblebooks";
+import { type BibleBook } from "../types/biblebooks";
 import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
 
