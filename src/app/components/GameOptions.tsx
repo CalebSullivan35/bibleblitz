@@ -19,11 +19,11 @@ export const GameOptions = ({
   setCurrentScore,
 }: GameOptionsProps) => {
   return (
-    <div className=" mb-6 flex flex-row">
+    <div className="mb-6 grid grid-cols-2 sm:grid-cols-4">
       {options.map((x, index) => (
-        <span
+        <button
           key={index}
-          className={`mx-1 cursor-pointer text-xs min-[375px]:text-sm min-[450px]:text-base sm:mx-4 sm:text-2xl ${
+          className={`btn btn-neutral sm:text-md m-2 text-base sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
             selectedOption
               ? x === selectedOption
                 ? x === correctBook
@@ -38,7 +38,7 @@ export const GameOptions = ({
           }}
         >
           {x.name}
-        </span>
+        </button>
       ))}
     </div>
   );

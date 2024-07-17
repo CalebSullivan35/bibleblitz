@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${GeistSans.variable}`}>
+      <html lang="en" className={`${GeistSans.variable}`} data-theme="emerald">
         <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
           <header className="flex justify-between pr-5 pt-5 text-lg">
             <h1></h1>
@@ -38,7 +38,7 @@ export default function RootLayout({
               }}
             />
           </header>
-          <main className="mt-10 flex flex-1 flex-col items-center sm:mt-72">
+          <main className="mt-24 flex flex-1 flex-col items-center sm:mt-72">
             <SignedOut>
               <SignIn routing="hash" />
             </SignedOut>

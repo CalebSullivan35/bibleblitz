@@ -48,14 +48,14 @@ export const BibleGame = () => {
         setCurrentScore={setCurrentScore}
       />
       <button
-        className="rounded border bg-white p-2 text-sm text-black sm:text-lg"
+        className="btn btn-primary sm:text-md text-base lg:text-lg xl:text-2xl"
         onClick={() => {
           setBook(getRandomBibleBookName());
           setSelectedOption(null);
           newBookButtonCheckForAnswer(selectedOption, setCurrentScore);
         }}
       >
-        Click for A new book
+        Click for a new book
       </button>
     </div>
   );
