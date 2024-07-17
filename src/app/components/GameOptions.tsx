@@ -23,7 +23,7 @@ export const GameOptions = ({
       {options.map((x, index) => (
         <button
           key={index}
-          className={`sm:text-md btn btn-neutral m-2 text-base sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
+          className={`sm:text-md btn btn-neutral m-2 shadow-md sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
             selectedOption
               ? x === selectedOption
                 ? x === correctBook
