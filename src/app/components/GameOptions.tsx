@@ -19,11 +19,11 @@ export const GameOptions = ({
   setCurrentScore,
 }: GameOptionsProps) => {
   return (
-    <div className="mb-6 grid grid-cols-2 sm:grid-cols-4">
+    <div className="mb-6 grid w-screen grid-cols-2 sm:w-fit sm:grid-cols-4">
       {options.map((x, index) => (
         <button
           key={index}
-          className={`btn btn-neutral sm:text-md m-2 text-base sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
+          className={`sm:text-md btn btn-neutral m-2 text-base sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
             selectedOption
               ? x === selectedOption
                 ? x === correctBook

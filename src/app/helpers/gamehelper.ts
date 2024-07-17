@@ -21,9 +21,10 @@ export function getNextBook(book: BibleBook) {
 export function generateAllRandomOptions(
   correctBook: BibleBook,
   addFakeBooks: boolean,
+  book: BibleBook,
 ) {
   const booksOfTheBiblewithoutAnswer = booksOfTheBible.filter(
-    (x) => x.name !== correctBook.name,
+    (x) => x.name !== correctBook.name || book.name,
   );
 
   if (addFakeBooks) {
@@ -37,8 +38,13 @@ export function getDisplayChoices(
   amount: number,
   correctBook: BibleBook,
   addFakeBooks: boolean,
+  book: BibleBook,
 ) {
-  const allWrongChoices = generateAllRandomOptions(correctBook, addFakeBooks);
+  const allWrongChoices = generateAllRandomOptions(
+    correctBook,
+    addFakeBooks,
+    book,
+  );
   const wrongChoices = sampleSize(allWrongChoices, amount);
   const allChoicesWithCorrectChoice = shuffle([...wrongChoices, correctBook]);
   return allChoicesWithCorrectChoice;

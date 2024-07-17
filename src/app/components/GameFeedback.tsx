@@ -1,4 +1,4 @@
-import { BibleBook } from "../types/biblebooks";
+import { type BibleBook } from "../types/biblebooks";
 
 interface GameFeedbackProps {
   selectedOption: BibleBook | null;
@@ -12,7 +12,7 @@ export const GameFeedback = ({
     <span
       className={`${selectedOption === correctBook ? "text-green-400" : "text-red-500"} sm:text-xl`}
     >
-      {selectedOption === correctBook ? "Correct!" : "Wrong"}
+      {selectedOption === correctBook ? "Correct!" : "Incorrect!"}
     </span>
   ) : (
     <span>&nbsp;</span>

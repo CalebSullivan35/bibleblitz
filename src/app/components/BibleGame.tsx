@@ -21,7 +21,7 @@ export const BibleGame = () => {
   useEffect(() => {
     const nextBook = getNextBook(book);
     setCorrectBook(nextBook);
-    setOptions(getDisplayChoices(3, nextBook, true));
+    setOptions(getDisplayChoices(3, nextBook, true, book));
     setSelectedOption(null);
   }, [book]);
 
@@ -48,7 +48,7 @@ export const BibleGame = () => {
         setCurrentScore={setCurrentScore}
       />
       <button
-        className="btn btn-primary sm:text-md text-base lg:text-lg xl:text-2xl"
+        className={`sm:text-md ${selectedOption === correctBook ? "btn-primary" : "btn-error"} btn btn-outline text-base lg:text-lg xl:text-2xl`}
         onClick={() => {
           setBook(getRandomBibleBookName());
           setSelectedOption(null);
