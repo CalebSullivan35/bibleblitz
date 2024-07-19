@@ -2,13 +2,11 @@ import {
   ClerkProvider,
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   UserButton,
 } from "@clerk/nextjs";
-import { GeistSans } from "geist/font";
+import { GeistSans } from "geist/font/sans";
 import "~/styles/globals.css";
-import { size } from "lodash";
 
 export const metadata = {
   title: "Bible Blitz",
@@ -22,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <html lang="en" className={`${GeistSans.variable}`} data-theme="emerald">
         <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
           <header className="flex justify-between pr-5 pt-5 text-lg">
