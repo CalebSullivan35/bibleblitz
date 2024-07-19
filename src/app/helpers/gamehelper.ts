@@ -2,6 +2,7 @@ import { booksOfTheBible, fakeBibkeBooks } from "~/data/BibleBooks";
 import { type BibleBook } from "../types/biblebooks";
 import { sampleSize, shuffle } from "lodash";
 import { type Dispatch, type SetStateAction } from "react";
+import { handleUserHighScore } from "../db/actions";
 
 export function getRandomBibleBookName() {
   const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);
@@ -50,7 +51,7 @@ export function getDisplayChoices(
   return allChoicesWithCorrectChoice;
 }
 
-export function trackScore(
+export async function trackScore(
   correctAnswer: BibleBook,
   selectedAnswer: BibleBook,
   score: number,
@@ -60,6 +61,7 @@ export function trackScore(
     //look into why score++ didnt work.
     setCurrentScore(score + 1);
   } else if (correctAnswer.name !== selectedAnswer.name) {
+    await handleUserHighScore(score);
     setCurrentScore(0);
   }
 }

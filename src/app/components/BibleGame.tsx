@@ -10,6 +10,7 @@ import {
 import { type BibleBook } from "../types/biblebooks";
 import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
+import { handleUserHighScore } from "../db/actions";
 
 export const BibleGame = () => {
   const [book, setBook] = useState(booksOfTheBible[0]!);
@@ -24,6 +25,10 @@ export const BibleGame = () => {
     setOptions(getDisplayChoices(3, nextBook, true, book));
     setSelectedOption(null);
   }, [book]);
+
+  useEffect(() => {
+    handleUserHighScore;
+  }, [currentScore]);
 
   return (
     <div className="flex flex-col items-center">

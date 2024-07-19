@@ -5,26 +5,46 @@ import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { eq } from "drizzle-orm";
 
-export async function trackHighScore(score: number) {
-  const { userId } = auth();
-  if (!userId) throw new Error("User not found");
+export async function getUserHighScore(userId: string) {
+  const userHighScore = await db
+    .select()
+    .from(userHighScoreTable)
+    .where(eq(userHighScoreTable.userId, userId));
+
+  if (userHighScore.length > 1) {
+    throw Error("Found Too Many High Scores");
+  }
+  return userHighScore[0];
+}
+
+export async function createNewUserHighScore(userId: string, score: number) {
   await db.insert(userHighScoreTable).values({
-    user_id: userId,
+    userId,
     score,
   });
 }
 
-export async function getUserHighScore() {
+export async function updateUserHighScore(userId: string, score: number) {
+  return db
+    .update(userHighScoreTable)
+    .set({
+      score,
+    })
+    .where(eq(userHighScoreTable.userId, userId))
+    .returning();
+}
+
+export async function handleUserHighScore(score: number) {
   const { userId } = auth();
-
   if (!userId) {
-    throw new Error("No Current User Signed In");
+    return;
   }
-
-  const userHighScore = await db
-    .select()
-    .from(userHighScoreTable)
-    .where(eq(userHighScoreTable.user_id, userId));
-
-  return userHighScore;
+  const currentHighScore = await getUserHighScore(userId);
+  if (!currentHighScore) {
+    await createNewUserHighScore(userId, score);
+  } else {
+    if (score > currentHighScore.score) {
+      await updateUserHighScore(userId, score);
+    }
+  }
 }
