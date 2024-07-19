@@ -58,7 +58,6 @@ export async function trackScore(
   setCurrentScore: Dispatch<SetStateAction<number>>,
 ) {
   if (correctAnswer.name === selectedAnswer.name) {
-    //look into why score++ didnt work.
     setCurrentScore(score + 1);
   } else if (correctAnswer.name !== selectedAnswer.name) {
     await handleUserHighScore(score);
