@@ -2,7 +2,7 @@ import {
   ClerkProvider,
   SignedIn,
   SignedOut,
-  SignIn,
+  SignInButton,
   UserButton,
 } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
@@ -27,25 +27,28 @@ export default function RootLayout({
         <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
           <header className="flex justify-between pr-5 pt-5 text-lg">
             <h1></h1>
-            <UserButton
-              showName
-              appearance={{
-                elements: {
-                  userButtonOuterIdentifier: {
-                    color: "white",
-                    "font-size": "20px",
+            <SignedIn>
+              <UserButton
+                showName
+                appearance={{
+                  elements: {
+                    userButtonOuterIdentifier: {
+                      color: "white",
+                      "font-size": "20px",
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="btn">Sign In</button>
+              </SignInButton>
+            </SignedOut>
           </header>
           <main className="mt-24 flex flex-1 flex-col items-center sm:mt-72">
-            <SignedOut>
-              <SignIn routing="hash" />
-            </SignedOut>
-            <SignedIn>{children}</SignedIn>
+            {children}
           </main>
-        </body>
       </html>
     </ClerkProvider>
   );
