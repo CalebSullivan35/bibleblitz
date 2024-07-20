@@ -11,8 +11,13 @@ import { type BibleBook } from "../types/biblebooks";
 import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
 import { handleUserHighScore } from "../db/actions";
+import { HighScore } from "./HighScore";
 
-export const BibleGame = () => {
+interface BibleGameProps {
+  CurrentHighScore: number | undefined;
+}
+
+export const BibleGame = ({ CurrentHighScore }: BibleGameProps) => {
   const [book, setBook] = useState(booksOfTheBible[0]!);
   const [correctBook, setCorrectBook] = useState<BibleBook>();
   const [options, setOptions] = useState<BibleBook[]>([]);
@@ -31,38 +36,41 @@ export const BibleGame = () => {
   }, [currentScore]);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="fixed bottom-24  flex flex-col text-center sm:left-20 sm:top-20 sm:text-3xl">
-        <span>Current Streak!</span>
+    <div className="h-full">
+      <div className="flex flex-col items-center">
+        <span className="text-4xl sm:text-6xl">{book.name}</span>
+        <div className="mb-6 flex flex-col items-center justify-center">
+          <span className="text-lg sm:text-xl">What comes next?</span>
+          <GameFeedback
+            selectedOption={selectedOption}
+            correctBook={correctBook}
+          />
+        </div>
+        <GameOptions
+          options={options}
+          correctBook={correctBook}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          currentScore={currentScore}
+          setCurrentScore={setCurrentScore}
+        />
+        <button
+          className={`sm:text-md ${selectedOption === correctBook ? "btn-primary" : "btn-error"}
+ btn text-base [&:not(:hover)]:btn-outline lg:text-lg xl:text-2xl`}
+          onClick={() => {
+            setBook(getRandomBibleBookName());
+            setSelectedOption(null);
+            newBookButtonCheckForAnswer(selectedOption, setCurrentScore);
+          }}
+        >
+          Click for a new book
+        </button>
+      </div>
+      <div className="mb-10 mt-20 flex flex-col text-center sm:text-3xl">
+        <span>Current Streak</span>
         <span>{currentScore}</span>
       </div>
-      <span className="text-4xl sm:text-6xl">{book.name}</span>
-      <div className="mb-6 flex flex-col items-center justify-center">
-        <span className="text-lg sm:text-xl">What comes next?</span>
-        <GameFeedback
-          selectedOption={selectedOption}
-          correctBook={correctBook}
-        />
-      </div>
-      <GameOptions
-        options={options}
-        correctBook={correctBook}
-        selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
-        currentScore={currentScore}
-        setCurrentScore={setCurrentScore}
-      />
-      <button
-        className={`sm:text-md ${selectedOption === correctBook ? "btn-primary" : "btn-error"}
- btn text-base [&:not(:hover)]:btn-outline lg:text-lg xl:text-2xl`}
-        onClick={() => {
-          setBook(getRandomBibleBookName());
-          setSelectedOption(null);
-          newBookButtonCheckForAnswer(selectedOption, setCurrentScore);
-        }}
-      >
-        Click for a new book
-      </button>
+      {CurrentHighScore && <HighScore score={CurrentHighScore} />}
     </div>
   );
 };

@@ -13,11 +13,11 @@ async function getServerSideProps() {
 }
 
 export default async function HomePage() {
-  const score = await getServerSideProps();
+  const highScore = await getServerSideProps();
   return (
     <>
       {/* {score && <HighScore score={score} />} */}
-      <BibleGame />
+      <BibleGame CurrentHighScore={highScore} />
     </>
   );
 }

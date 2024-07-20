@@ -4,8 +4,8 @@ interface HighScoreProps {
 
 export const HighScore = ({ score }: HighScoreProps) => {
   return (
-    <div className="absolute right-10 top-14 float-end flex flex-col">
-      <span className="text-sm sm:text-base">Personal High Score</span>
+    <div className="flex flex-col sm:text-3xl">
+      <span className="text-center sm:text-3xl">Personal High Score</span>
       <span className="text-center">{score}</span>
     </div>
   );
