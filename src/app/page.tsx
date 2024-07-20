@@ -16,7 +16,7 @@ export default async function HomePage() {
   const score = await getServerSideProps();
   return (
     <>
-      {score && <HighScore score={score} />}
+      {/* {score && <HighScore score={score} />} */}
       <BibleGame />
     </>
   );

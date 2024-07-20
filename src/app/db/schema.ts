@@ -5,6 +5,8 @@ export const userHighScoreTable = pgTable("user_high_score", {
   userId: text("user_id").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   score: integer("score").notNull(),
+  userName: text("username"),
+  userImage: text("user-image-source"),
 });
 
 export type UserHighScore = typeof userHighScoreTable.$inferSelect;

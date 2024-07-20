@@ -1,13 +1,7 @@
-import {
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import "~/styles/globals.css";
-
+import { NavBar } from "./components/NavBar";
 export const metadata = {
   title: "Bible Blitz",
   description: "A Bible Drill App",
@@ -20,33 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en" className={`${GeistSans.variable}`} data-theme="emerald">
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
+      <html lang="en" className={GeistSans.variable} data-theme="emerald">
         <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
-          <header className="flex justify-between pr-5 pt-5 text-lg">
-            <h1></h1>
-            <SignedIn>
-              <UserButton
-                showName
-                appearance={{
-                  elements: {
-                    userButtonOuterIdentifier: {
-                      color: "white",
-                      "font-size": "20px",
-                    },
-                  },
-                }}
-              />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button className="btn">Sign In</button>
-              </SignInButton>
-            </SignedOut>
-          </header>
-          <main className="mt-24 flex flex-1 flex-col items-center sm:mt-72">
-            {children}
-          </main>
+          <NavBar>
+            <main className="mt-4 flex flex-1 flex-col items-center sm:mt-44">
+              {children}
+            </main>
+          </NavBar>
         </body>
       </html>
     </ClerkProvider>
