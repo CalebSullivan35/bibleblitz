@@ -53,7 +53,8 @@ export const BibleGame = () => {
         setCurrentScore={setCurrentScore}
       />
       <button
-        className={`sm:text-md ${selectedOption === correctBook ? "btn-primary" : "btn-error"} btn btn-outline text-base lg:text-lg xl:text-2xl`}
+        className={`sm:text-md ${selectedOption === correctBook ? "btn-primary" : "btn-error"}
+ btn text-base [&:not(:hover)]:btn-outline lg:text-lg xl:text-2xl`}
         onClick={() => {
           setBook(getRandomBibleBookName());
           setSelectedOption(null);
