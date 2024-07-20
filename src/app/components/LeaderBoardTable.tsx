@@ -24,7 +24,7 @@ const LeaderBoardTable = ({ rankings }: LeaderBoardTableProps) => {
                 <td>
                   <div className="avatar">
                     <div className="mask mask-squircle my-1 h-12 w-12">
-                      <img src={ranking.userImage} alt="User Avatar" />
+                      <img src={ranking.userImage!} alt="User Avatar" />
                     </div>
                   </div>
                 </td>
