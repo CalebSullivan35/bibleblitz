@@ -1,10 +1,7 @@
-import { type UserHighScore } from "../db/schema";
+import { getLeaderBoardRankings } from "../db/actions";
 
-interface LeaderBoardTableProps {
-  rankings: UserHighScore[];
-}
-
-const LeaderBoardTable = ({ rankings }: LeaderBoardTableProps) => {
+const LeaderBoardTable = async () => {
+  const rankings = await getLeaderBoardRankings();
   return (
     <div className="mx-2">
       {rankings.length > 0 && (
