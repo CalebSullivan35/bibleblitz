@@ -98,6 +98,12 @@ export const NavBar = ({ children }: NavBarProps) => {
           >
             <Link href="/bibleIndex">Bible Index</Link>
           </li>
+          <li
+            onClick={() => setIsOpen(false)}
+            className={pathName === "/learn" ? "text-primary" : ""}
+          >
+            <Link href="/learn">Practice Tool</Link>
+          </li>
         </ul>
       </div>
     </div>
