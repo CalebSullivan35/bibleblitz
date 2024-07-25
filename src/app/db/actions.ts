@@ -4,7 +4,12 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
-import { revalidatePath, revalidateTag } from "next/cache";
+import {
+  revalidatePath,
+  revalidateTag,
+  unstable_cache,
+  unstable_noStore,
+} from "next/cache";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db
@@ -51,14 +56,17 @@ export async function handleUserHighScore(score: number) {
       await updateUserHighScore(userId, score);
     }
   }
-  revalidatePath("/");
 }
 
-export async function getLeaderBoardRankings() {
-  const rankings = await db
-    .select()
-    .from(userHighScoreTable)
-    .orderBy(desc(userHighScoreTable.score));
-  revalidateTag("rankings");
-  return rankings;
-}
+export const getLeaderBoardRankings = unstable_cache(
+  async () => {
+    return db
+      .select()
+      .from(userHighScoreTable)
+      .orderBy(desc(userHighScoreTable.score));
+  },
+  ["userHighScoreTable"],
+  {
+    tags: ["userHighScoreTable"],
+  },
+);
