@@ -68,13 +68,22 @@ export const BibleGame = ({ CurrentHighScore }: BibleGameProps) => {
           </button>
         </div>
       </div>
-      <div className="text-md sm: m-10 flex w-full flex-row items-center justify-between px-10 text-base sm:w-fit ">
-        <div className="flex flex-col text-center  sm:mr-24 sm:text-3xl">
-          <span>Current Streak</span>
-          <span>{currentScore}</span>
+      {CurrentHighScore ? (
+        <div className="text-md m-10 flex w-full flex-row items-center justify-between px-10 text-base sm:w-fit ">
+          <div className="flex flex-col text-center sm:mr-24 sm:text-3xl">
+            <span>Current Streak</span>
+            <span>{currentScore}</span>
+          </div>
+          {CurrentHighScore && <HighScore score={CurrentHighScore} />}
         </div>
-        {CurrentHighScore && <HighScore score={CurrentHighScore} />}
-      </div>
+      ) : (
+        <div className=" m-10 px-10 text-base sm:w-fit ">
+          <div className="flex flex-col text-center sm:text-3xl">
+            <span>Current Streak</span>
+            <span>{currentScore}</span>
+          </div>
+        </div>
+      )}
     </>
   );
 };
