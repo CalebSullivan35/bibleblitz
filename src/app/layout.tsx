@@ -17,8 +17,12 @@ export default function RootLayout({
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
-      <html lang="en" className={GeistSans.variable} data-theme="emerald">
-        <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
+      <html
+        lang="en"
+        className={`${GeistSans.variable} bg-slate-800`}
+        data-theme="emerald"
+      >
+        <body className="flex h-screen min-h-screen flex-col  text-xl text-white">
           <NavBar>
             <main className="mt-4 flex flex-1 flex-col items-center sm:mt-24">
               {children}

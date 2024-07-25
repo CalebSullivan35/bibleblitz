@@ -1,6 +1,7 @@
 "use client";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 
 interface NavBarProps {
@@ -8,7 +9,9 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ children }: NavBarProps) => {
+  const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  console.log(pathName);
   return (
     <div className="drawer-auto-gutter drawer ">
       <input
@@ -76,14 +79,23 @@ export const NavBar = ({ children }: NavBarProps) => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-full bg-black p-4 sm:w-80">
-          <li onClick={() => setIsOpen(false)}>
+        <ul className="menu min-h-full w-full bg-black p-4 text-xl sm:w-80">
+          <li
+            onClick={() => setIsOpen(false)}
+            className={pathName === "/" ? "text-primary" : ""}
+          >
             <Link href="/">Home</Link>
           </li>
-          <li onClick={() => setIsOpen(false)}>
+          <li
+            onClick={() => setIsOpen(false)}
+            className={pathName === "/leaderboard" ? "text-primary" : ""}
+          >
             <Link href="/leaderboard">Leaderboard</Link>
           </li>
-          <li onClick={() => setIsOpen(false)}>
+          <li
+            onClick={() => setIsOpen(false)}
+            className={pathName === "/bibleIndex" ? "text-primary" : ""}
+          >
             <Link href="/bibleIndex">Bible Index</Link>
           </li>
         </ul>
