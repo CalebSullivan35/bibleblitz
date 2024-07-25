@@ -83,6 +83,9 @@ export const NavBar = ({ children }: NavBarProps) => {
           <li onClick={() => setIsOpen(false)}>
             <Link href="/leaderboard">Leaderboard</Link>
           </li>
+          <li onClick={() => setIsOpen(false)}>
+            <Link href="/bibleIndex">Bible Index</Link>
+          </li>
         </ul>
       </div>
     </div>
