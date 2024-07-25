@@ -24,7 +24,7 @@ export default function RootLayout({
       >
         <body className="flex h-screen min-h-screen flex-col  text-xl text-white">
           <NavBar>
-            <main className="mt-4 flex flex-1 flex-col items-center sm:mt-24">
+            <main className="flex flex-1 flex-col items-center">
               {children}
             </main>
           </NavBar>

@@ -37,7 +37,7 @@ export const BibleGame = ({ CurrentHighScore }: BibleGameProps) => {
 
   return (
     <>
-      <div className="h-full">
+      <div className="mt-4 h-full sm:mt-24">
         <div className="flex flex-col items-center">
           <span className="text-4xl sm:text-6xl">{book.name}</span>
           <div className="mb-6 flex flex-col items-center justify-center">
