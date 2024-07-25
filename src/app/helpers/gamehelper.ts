@@ -24,7 +24,6 @@ export function generateAllRandomOptions(
   addFakeBooks: boolean,
   book: BibleBook,
 ) {
-  console.log(book);
   const booksOfTheBiblewithoutAnswer = booksOfTheBible.filter(
     (x) => x.name !== correctBook.name && x.name !== book.name,
   );
