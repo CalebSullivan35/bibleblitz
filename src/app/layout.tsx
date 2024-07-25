@@ -20,7 +20,7 @@ export default function RootLayout({
       <html lang="en" className={GeistSans.variable} data-theme="emerald">
         <body className="flex h-screen min-h-screen flex-col bg-gradient-to-b from-slate-600 to-slate-800 text-xl text-white">
           <NavBar>
-            <main className="mt-4 flex flex-1 flex-col items-center sm:mt-44">
+            <main className="mt-4 flex flex-1 flex-col items-center sm:mt-24">
               {children}
             </main>
           </NavBar>
