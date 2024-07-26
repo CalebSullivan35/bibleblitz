@@ -1,5 +1,6 @@
 "use client";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
@@ -11,7 +12,7 @@ interface NavBarProps {
 export const NavBar = ({ children }: NavBarProps) => {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  console.log(pathName);
+
   return (
     <div className="drawer-auto-gutter drawer ">
       <input
@@ -87,7 +88,9 @@ export const NavBar = ({ children }: NavBarProps) => {
             <Link href="/">Home</Link>
           </li>
           <li
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+            }}
             className={pathName === "/leaderboard" ? "text-primary" : ""}
           >
             <Link href="/leaderboard">Leaderboard</Link>
@@ -109,27 +112,3 @@ export const NavBar = ({ children }: NavBarProps) => {
     </div>
   );
 };
-
-{
-  /* <header className="flex justify-between pr-5 pt-5 text-lg">
-  <h1></h1>
-  <SignedIn>
-    <UserButton
-      showName
-      appearance={{
-        elements: {
-          userButtonOuterIdentifier: {
-            color: "white",
-            "font-size": "20px",
-          },
-        },
-      }}
-    />
-  </SignedIn>
-  <SignedOut>
-    <SignInButton mode="modal">
-      <button className="btn">Sign In</button>
-    </SignInButton>
-  </SignedOut>
-</header>; */
-}
