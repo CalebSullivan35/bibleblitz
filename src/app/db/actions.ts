@@ -1,10 +1,10 @@
 "use server";
-
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
+import { revalidatePath } from "node_modules/next/cache";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db
@@ -51,6 +51,7 @@ export async function handleUserHighScore(score: number) {
       await updateUserHighScore(userId, score);
     }
   }
+  revalidatePath("/leaderboards");
 }
 
 export async function getLeaderBoardRankings() {
