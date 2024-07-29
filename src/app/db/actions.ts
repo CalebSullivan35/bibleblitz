@@ -3,7 +3,6 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
-import { cookies } from "next/headers";
 import { revalidatePath } from "node_modules/next/cache";
 
 export async function getUserHighScore(userId: string) {
@@ -55,8 +54,6 @@ export async function handleUserHighScore(score: number) {
 }
 
 export async function getLeaderBoardRankings() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _cookies = cookies();
   return db
     .select()
     .from(userHighScoreTable)

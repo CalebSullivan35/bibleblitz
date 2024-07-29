@@ -12,6 +12,7 @@ import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
 import { handleUserHighScore } from "../db/actions";
 import { HighScore } from "./HighScore";
+import { Game } from "./Game";
 
 interface BibleGameProps {
   CurrentHighScore: number | undefined;
@@ -23,6 +24,7 @@ export const BibleGame = ({ CurrentHighScore }: BibleGameProps) => {
   const [options, setOptions] = useState<BibleBook[]>([]);
   const [selectedOption, setSelectedOption] = useState<BibleBook | null>(null);
   const [currentScore, setCurrentScore] = useState(0);
+  const [counter, setCounter] = useState(40);
 
   useEffect(() => {
     const nextBook = getNextBook(book);
