@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { booksOfTheBible } from "~/data/BibleBooks";
 
 // This component will take values in to handle dynamic generation of a bible game.
 interface GameProps {
@@ -16,6 +17,18 @@ export const Game = ({ GameTimer, FakeBooks, Testaments }: GameProps) => {
       console.log("finished");
     }
   }, [counter]);
+
+  //Get the books of the bible we want.
+  const GameBooks = () => {
+    if (Testaments === "Old") {
+      return booksOfTheBible.filter((b) => b.Testament === "Old");
+    } else if (Testaments === "New") {
+      return booksOfTheBible.filter((b) => b.Testament === "New");
+    }
+    return booksOfTheBible;
+  };
+
+  
 
   return (
     <span className="countdown font-mono text-6xl">
