@@ -4,6 +4,7 @@ import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "node_modules/next/cache";
+import moment from "moment";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db
@@ -32,6 +33,7 @@ export async function updateUserHighScore(userId: string, score: number) {
     .update(userHighScoreTable)
     .set({
       score,
+      createdAt: moment().toDate(),
     })
     .where(eq(userHighScoreTable.userId, userId))
     .returning();
