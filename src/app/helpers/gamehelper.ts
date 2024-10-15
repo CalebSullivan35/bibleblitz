@@ -4,7 +4,7 @@ import { sampleSize, shuffle } from "lodash";
 import { type Dispatch, type SetStateAction } from "react";
 import { handleUserHighScore } from "../db/actions";
 
-export function getRandomBibleBookName() {
+export function getRandomBibleBook() {
   const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);
   const book = booksOfTheBible[randomIndex]!;
   return book;
@@ -55,7 +55,7 @@ export async function trackScore(
   correctAnswer: BibleBook,
   selectedAnswer: BibleBook,
   score: number,
-  setCurrentScore: Dispatch<SetStateAction<number>>,
+  setCurrentScore: (score: number) => void,
 ) {
   if (correctAnswer.name === selectedAnswer.name) {
     setCurrentScore(score + 1);
@@ -67,7 +67,7 @@ export async function trackScore(
 
 export function newBookButtonCheckForAnswer(
   selectedAnswer: BibleBook | null,
-  setCurrentScore: Dispatch<SetStateAction<number>>,
+  setCurrentScore: (score: number) => void,
 ) {
   if (selectedAnswer === null) {
     setCurrentScore(0);

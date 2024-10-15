@@ -1,13 +1,8 @@
-import { type BibleBook } from "../types/biblebooks";
+"use client";
+import { useGameStore } from "../Stores/gameStore";
 
-interface GameFeedbackProps {
-  selectedOption: BibleBook | null;
-  correctBook: BibleBook | undefined;
-}
-export const GameFeedback = ({
-  selectedOption,
-  correctBook,
-}: GameFeedbackProps) => {
+export const GameFeedback = () => {
+  const { selectedOption, correctBook } = useGameStore();
   return selectedOption !== null ? (
     <span
       className={`${selectedOption === correctBook ? "text-green-400" : "text-red-500"} sm:text-xl`}

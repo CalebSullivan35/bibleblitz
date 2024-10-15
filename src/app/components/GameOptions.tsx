@@ -1,44 +1,43 @@
-import { type Dispatch, type SetStateAction } from "react";
-import { trackScore } from "../helpers/gamehelper";
-import { type BibleBook } from "../types/biblebooks";
-interface GameOptionsProps {
-  options: BibleBook[];
-  selectedOption: BibleBook | null;
-  setSelectedOption: Dispatch<SetStateAction<BibleBook | null>>;
-  correctBook: BibleBook | undefined;
-  currentScore: number;
-  setCurrentScore: Dispatch<SetStateAction<number>>;
-}
+"use client";
+import { useEffect } from "react";
+import { getDisplayChoices, trackScore } from "../helpers/gamehelper";
+import { useGameStore } from "../Stores/gameStore";
 
-export const GameOptions = ({
-  options,
-  selectedOption,
-  setSelectedOption,
-  correctBook,
-  currentScore,
-  setCurrentScore,
-}: GameOptionsProps) => {
+export const GameOptions = () => {
+  const gameStore = useGameStore();
+
+  useEffect(() => {
+    gameStore.setOptions(
+      getDisplayChoices(
+        3,
+        gameStore.correctBook!,
+        true,
+        gameStore.currentBook!,
+      ),
+    );
+  }, [gameStore.correctBook, gameStore.currentBook]);
+
   return (
     <div className="mb-6 grid w-screen grid-cols-2 sm:w-fit sm:grid-cols-4">
-      {options.map((bibleBook, index) => (
+      {gameStore.options!.map((bibleBook, index) => (
         <button
           key={index}
           className={`sm:text-md btn btn-neutral m-2 shadow-md sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
-            selectedOption
-              ? bibleBook === selectedOption
-                ? bibleBook === correctBook
+            gameStore.selectedOption
+              ? bibleBook === gameStore.selectedOption
+                ? bibleBook === gameStore.correctBook
                   ? "text-green-400"
                   : "text-red-500"
                 : ""
               : ""
           }`}
           onClick={async () => {
-            setSelectedOption(bibleBook);
+            gameStore.setSelectedOption(bibleBook);
             await trackScore(
-              correctBook!,
+              gameStore.correctBook!,
               bibleBook,
-              currentScore,
-              setCurrentScore,
+              gameStore.currentScore,
+              gameStore.setCurrentScore,
             );
           }}
         >
