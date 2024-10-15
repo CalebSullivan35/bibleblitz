@@ -107,6 +107,12 @@ export const NavBar = ({ children }: NavBarProps) => {
           >
             <Link href="/learn">Practice Tool</Link>
           </li>
+          <li
+            onClick={() => setIsOpen(false)}
+            className={pathName === "/about" ? "text-primary" : ""}
+          >
+            <Link href="/about">About</Link>
+          </li>
         </ul>
       </div>
     </div>

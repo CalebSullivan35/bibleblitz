@@ -5,6 +5,8 @@ import { db } from ".";
 import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "node_modules/next/cache";
 import moment from "moment";
+import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "node_modules/@tanstack/react-query/build/legacy";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db

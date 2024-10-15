@@ -2,7 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import "~/styles/globals.css";
 import { NavBar } from "./components/NavBar";
-import { ReactQueryCloentProvider } from "./components/ReactQueryClientProvider";
+import { ReactQueryClientProvider } from "./components/ReactQueryClientProvider";
 export const metadata = {
   title: "Bible Blitz",
   description: "A Bible Drill App",
@@ -18,7 +18,7 @@ export default function RootLayout({
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
-      <ReactQueryCloentProvider>
+      <ReactQueryClientProvider>
         <html
           lang="en"
           className={`${GeistSans.variable} bg-slate-800`}
@@ -32,7 +32,7 @@ export default function RootLayout({
             </NavBar>
           </body>
         </html>
-      </ReactQueryCloentProvider>
+      </ReactQueryClientProvider>
     </ClerkProvider>
   );
 }
