@@ -1,7 +1,6 @@
 import { booksOfTheBible, fakeBibkeBooks } from "~/data/BibleBooks";
 import { type BibleBook } from "../types/biblebooks";
 import { sampleSize, shuffle } from "lodash";
-import { type Dispatch, type SetStateAction } from "react";
 import { handleUserHighScore } from "../db/actions";
 
 export function getRandomBibleBook() {

@@ -1,9 +1,9 @@
 "use client";
-import { newBookButtonCheckForAnswer } from "../helpers/gamehelper";
+import { useGameStore } from "~/Stores/gameStore";
+import { newBookButtonCheckForAnswer } from "../../helpers/gamehelper";
 import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
 import { HighScore } from "./HighScore";
-import { useGameStore } from "../Stores/gameStore";
 
 interface BibleGameProps {
   CurrentHighScore: number | undefined;

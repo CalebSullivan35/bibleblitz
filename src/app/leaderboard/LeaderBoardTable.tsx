@@ -1,4 +1,4 @@
-import { getLeaderBoardRankings } from "../db/actions";
+import { getLeaderBoardRankings } from "../../db/actions";
 
 const LeaderBoardTable = async () => {
   const rankings = await getLeaderBoardRankings();

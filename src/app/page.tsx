@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { BibleGame } from "./components/BibleGame";
-import { getUserHighScore } from "./db/actions";
+import { getUserHighScore } from "../db/actions";
 
 async function getServerSideProps() {
   const { userId } = auth();

@@ -1,5 +1,5 @@
 "use client";
-import { useGameStore } from "../Stores/gameStore";
+import { useGameStore } from "~/Stores/gameStore";
 
 export const GameFeedback = () => {
   const { selectedOption, correctBook } = useGameStore();

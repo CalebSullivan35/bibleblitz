@@ -1,4 +1,4 @@
-import LeaderBoardTable from "../components/LeaderBoardTable";
+import LeaderBoardTable from "./LeaderBoardTable";
 
 export default async function Page() {
   return (

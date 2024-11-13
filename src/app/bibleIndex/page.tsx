@@ -1,3 +1,4 @@
+"Use Client";
 import { booksOfTheBible } from "~/data/BibleBooks";
 
 export default function Page() {
@@ -7,6 +8,7 @@ export default function Page() {
   const newTestimentBooksInOrder = booksOfTheBible.filter(
     (book) => book.Testament === "New",
   );
+
   return (
     <div className="flex h-[90vh] w-[90vw] flex-col text-sm sm:w-[50vw] sm:text-base">
       <div className="bold mb-3 text-xl underline sm:text-3xl">

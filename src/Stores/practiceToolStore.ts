@@ -1,36 +1,28 @@
-import { create } from "zustand";
-import { BibleBook } from "../types/biblebooks";
 import { booksOfTheBible } from "~/data/BibleBooks";
-import { handleUserHighScore } from "../db/actions";
-import {
-  getDisplayChoices,
-  getNextBook,
-  getRandomBibleBook,
-} from "../helpers/gamehelper";
+import { getNextBook, getDisplayChoices } from "../helpers/gamehelper";
+import { BibleBook } from "../../types/biblebooks";
+import { create } from "zustand";
 
-type GameStore = {
+type PracticeTool = {
   currentScore: number;
   setCurrentScore: (newScore: number) => void;
-  correctBook: BibleBook | undefined;
+  correctBook: BibleBook;
   setCorrectBook: (bibleBook: BibleBook) => void;
-  currentBook: BibleBook | undefined;
+  currentBook: BibleBook;
   setCurrentBook: (BibleBook: BibleBook) => void;
-  options: BibleBook[] | undefined;
+  options: BibleBook[];
   setOptions: (bibleBook: BibleBook[]) => void;
   selectedOption: BibleBook | null;
-  setSelectedOption: (BibleBook: BibleBook) => void;
-  handleNewCorrectBook: () => void;
+  setSelectedOption: (BibleBook: BibleBook | null) => void;
+  handleNextBook: () => void;
 };
 
-export const useGameStore = create<GameStore>((set, get) => ({
+export const usePracticeToolStore = create<PracticeTool>((set, get) => ({
   currentScore: 0,
-  setCurrentScore: async (newScore) => {
-    await handleUserHighScore(newScore);
-    set(() => ({ currentScore: newScore }));
-  },
-  correctBook: booksOfTheBible[1],
+  setCurrentScore: (newScore) => set(() => ({ currentScore: newScore })),
+  correctBook: booksOfTheBible[1]!,
   setCorrectBook: (bibleBook) => set(() => ({ correctBook: bibleBook })),
-  currentBook: booksOfTheBible[0],
+  currentBook: booksOfTheBible[0]!,
   setCurrentBook: (bibleBook) => {
     set(() => ({ currentBook: bibleBook }));
   },
@@ -38,8 +30,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   setOptions: (bibleBooks) => set(() => ({ options: bibleBooks })),
   selectedOption: null,
   setSelectedOption: (bibleBook) => set(() => ({ selectedOption: bibleBook })),
-  handleNewCorrectBook: () => {
-    const newCurrentBook = getRandomBibleBook();
+  handleNextBook: () => {
+    const newCurrentBook = getNextBook(get().currentBook);
     set({ currentBook: newCurrentBook });
     const newCorrectBook = getNextBook(newCurrentBook);
     set({ correctBook: newCorrectBook });
