@@ -1,7 +1,7 @@
 import { booksOfTheBible } from "~/data/BibleBooks";
 import { getNextBook, getDisplayChoices } from "../helpers/gamehelper";
-import { BibleBook } from "../../types/biblebooks";
 import { create } from "zustand";
+import { type BibleBook } from "~/types/biblebooks";
 
 type PracticeTool = {
   currentScore: number;
@@ -15,6 +15,7 @@ type PracticeTool = {
   selectedOption: BibleBook | null;
   setSelectedOption: (BibleBook: BibleBook | null) => void;
   handleNextBook: () => void;
+  restartPracticeTool: () => void;
 };
 
 export const usePracticeToolStore = create<PracticeTool>((set, get) => ({
@@ -26,22 +27,39 @@ export const usePracticeToolStore = create<PracticeTool>((set, get) => ({
   setCurrentBook: (bibleBook) => {
     set(() => ({ currentBook: bibleBook }));
   },
-  options: [],
+  options: getDisplayChoices(3, booksOfTheBible[1]!, true, booksOfTheBible[0]!),
   setOptions: (bibleBooks) => set(() => ({ options: bibleBooks })),
   selectedOption: null,
   setSelectedOption: (bibleBook) => set(() => ({ selectedOption: bibleBook })),
+
   handleNextBook: () => {
     const newCurrentBook = getNextBook(get().currentBook);
-    set({ currentBook: newCurrentBook });
     const newCorrectBook = getNextBook(newCurrentBook);
-    set({ correctBook: newCorrectBook });
     const newOptions = getDisplayChoices(
       3,
       newCorrectBook,
       true,
       newCurrentBook,
     );
-    set({ options: newOptions });
-    set({ selectedOption: null });
+    set({
+      currentBook: newCurrentBook,
+      correctBook: newCorrectBook,
+      options: newOptions,
+      selectedOption: null,
+    });
+  },
+
+  restartPracticeTool: () => {
+    set({
+      currentBook: booksOfTheBible[0]!,
+      correctBook: booksOfTheBible[1]!,
+      options: getDisplayChoices(
+        3,
+        booksOfTheBible[1]!,
+        true,
+        booksOfTheBible[0]!,
+      ),
+      selectedOption: null,
+    });
   },
 }));

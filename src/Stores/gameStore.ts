@@ -8,7 +8,7 @@ import {
   getNextBook,
   trackScore,
 } from "~/helpers/gamehelper";
-import { BibleBook } from "~/types/biblebooks";
+import { type BibleBook } from "~/types/biblebooks";
 
 type GameStore = {
   currentScore: number;
@@ -28,45 +28,62 @@ type GameStore = {
 export const useGameStore = create(
   subscribeWithSelector<GameStore>((set, get) => ({
     currentScore: 0,
-    setCurrentScore: async (newScore) => {
-      await handleUserHighScore(newScore);
-      set(() => ({ currentScore: newScore }));
+
+    setCurrentScore: (newScore) => {
+      handleUserHighScore(newScore)
+        .then(() => {
+          set(() => ({ currentScore: newScore }));
+        })
+        .catch((error) => {
+          console.error("Error handling user high score:", error);
+        });
     },
+
     correctBook: booksOfTheBible[1]!,
+
     setCorrectBook: (bibleBook) => set(() => ({ correctBook: bibleBook })),
+
     currentBook: booksOfTheBible[0]!,
+
     setCurrentBook: (bibleBook) => {
       set(() => ({ currentBook: bibleBook }));
     },
+
     options: getDisplayChoices(
       3,
       booksOfTheBible[1]!,
       true,
       booksOfTheBible[0]!,
     ),
+
     setOptions: (bibleBooks) => set(() => ({ options: bibleBooks })),
     selectedOption: null,
+
     setSelectedOption: (bibleBook) =>
       set(() => ({ selectedOption: bibleBook })),
+
     handleNewCorrectBook: () => {
       const newCurrentBook = getRandomBibleBook();
-      set({ currentBook: newCurrentBook });
       const newCorrectBook = getNextBook(newCurrentBook);
-      set({ correctBook: newCorrectBook });
       const newOptions = getDisplayChoices(
         3,
         newCorrectBook,
         true,
         newCurrentBook,
       );
-      set({ options: newOptions });
-      set({ selectedOption: null });
+      set({
+        currentBook: newCurrentBook,
+        correctBook: newCorrectBook,
+        options: newOptions,
+        selectedOption: null,
+      });
     },
-    selectOption: async (book: BibleBook) => {
+
+    selectOption: (book: BibleBook) => {
       const { correctBook, currentScore, setSelectedOption, setCurrentScore } =
         get();
       setSelectedOption(book);
-      await trackScore(correctBook!, book, currentScore, setCurrentScore);
+      void trackScore(correctBook, book, currentScore, setCurrentScore);
     },
   })),
 );

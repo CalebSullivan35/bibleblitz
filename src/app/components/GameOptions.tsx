@@ -14,19 +14,19 @@ export const GameOptions = () => {
   return (
     <>
       {hydrated && (
-        <div className="mb-6 grid w-screen grid-cols-2 sm:w-fit sm:grid-cols-4">
+        <div className="mx-auto grid grid-cols-2 gap-4 sm:w-[400px]">
           {gameStore.options.map((bibleBook, index) => (
             <button
               disabled={gameStore.correctBook === gameStore.selectedOption}
               key={index}
-              className={`sm:text-md btn btn-neutral m-2 shadow-md sm:mx-4 sm:my-0 lg:text-lg xl:text-2xl ${
+              className={`flex h-20 items-center justify-center rounded-xl border-2 font-medium shadow-md transition-all hover:scale-[1.02] hover:shadow-lg ${
                 gameStore.selectedOption
                   ? bibleBook === gameStore.selectedOption
                     ? bibleBook === gameStore.correctBook
-                      ? "text-green-400"
-                      : "text-red-500"
-                    : ""
-                  : ""
+                      ? "border-green-500 bg-green-50 text-green-700"
+                      : "border-red-500 bg-red-50 text-red-700"
+                    : "border-gray-200 hover:border-blue-300"
+                  : "border-gray-200 hover:border-blue-300"
               }`}
               onClick={() => gameStore.selectOption(bibleBook)}
             >
