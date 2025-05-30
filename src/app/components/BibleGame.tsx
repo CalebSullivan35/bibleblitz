@@ -4,7 +4,7 @@ import { newBookButtonCheckForAnswer } from "../../helpers/gamehelper";
 import { GameFeedback } from "./GameFeedback";
 import { GameOptions } from "./GameOptions";
 import { motion, AnimatePresence } from "framer-motion";
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { getUserHighScore } from "~/db/actions";
 import { useEffect, useState } from "react";
 
@@ -25,7 +25,7 @@ export const BibleGame = () => {
   }, [isLoaded, isSignedIn, user]);
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className=" min-w-[340px] sm:mx-auto">
       {/* Score Display */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -39,11 +39,15 @@ export const BibleGame = () => {
               </span>
             </div>
           ) : (
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <p className="block text-sm text-gray-600">
-                Sign in to Track High Score!
-              </p>
-            </div>
+            <SignInButton>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-8 w-48 rounded-lg bg-blue-500 px-8 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
+              >
+                Track Your High Score!
+              </motion.button>
+            </SignInButton>
           )}
         </div>
         {gameStore.currentScore > 0 && (
@@ -56,9 +60,8 @@ export const BibleGame = () => {
           </motion.div>
         )}
       </div>
-
       {/* Game Area */}
-      <div className="rounded-xl bg-white p-8 shadow-xl">
+      <div className="rounded-xl bg-white p-4 shadow-xl sm:p-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={gameStore.currentBook?.name}
@@ -87,7 +90,6 @@ export const BibleGame = () => {
               </div>
               <GameOptions />
             </div>
-
             {/* Next Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}

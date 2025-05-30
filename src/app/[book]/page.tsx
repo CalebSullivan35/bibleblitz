@@ -23,11 +23,11 @@ export default function BookPage({ params }: { params: { book: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 py-8">
+    <div className="min-h-screen   px-4 py-8">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900">{book.name}</h1>
+          <h1 className="text-4xl font-bold text-blue-500">{book.name}</h1>
           <p className="mt-2 text-lg text-gray-600">
             {book.Testament} Testament
           </p>

@@ -26,10 +26,10 @@ export default function Page() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mx-auto max-w-7xl">
-        <h1 className="text-center text-4xl font-bold text-gray-900 sm:text-5xl">
+        <h1 className="blue-500 text-center text-4xl font-bold sm:text-5xl">
           Bible Books
         </h1>
         <p className="mt-4 text-center text-lg text-gray-600">
@@ -46,7 +46,7 @@ export default function Page() {
               placeholder="Search books..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 pl-10 text-black focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <svg
               className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
@@ -83,19 +83,19 @@ export default function Page() {
       {/* Books Grid */}
       <div className="mx-auto mt-8 max-w-7xl">
         <div className="relative w-full">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {selectedTestament === "All" ? (
               <>
                 <div className="col-span-full mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-grey-800 text-4xl font-bold">
                     Old Testament
                   </h2>
                 </div>
                 {oldTestamentBooks.map((book) => (
                   <Link
                     key={book.name}
-                    href={`/learn/${book.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="group relative overflow-hidden rounded-lg bg-white p-6 shadow-md transition-all hover:shadow-lg"
+                    href={`/${book.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="group relative overflow-hidden rounded-lg bg-white p-3 shadow-md transition-all hover:shadow-lg"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                     <h3 className="relative text-lg font-semibold text-gray-900">
@@ -104,10 +104,13 @@ export default function Page() {
                     <p className="relative mt-2 text-sm text-gray-600">
                       Old Testament
                     </p>
+                    <p className="relative mt-2 text-sm text-gray-600">
+                      Book Category: {book.Category}
+                    </p>
                   </Link>
                 ))}
                 <div className="col-span-full mb-6 mt-12">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-grey-800 text-4xl font-bold">
                     New Testament
                   </h2>
                 </div>

@@ -22,8 +22,7 @@ export default function RootLayout({
       <ReactQueryClientProvider>
         <html
           lang="en"
-          className={`${GeistSans.variable} bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900`}
-          data-theme="light"
+          className={`${GeistSans.variable} bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 bg-fixed`}
         >
           <body className="min-h-screen bg-fixed">
             <NavBar>
