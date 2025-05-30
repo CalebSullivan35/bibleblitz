@@ -21,12 +21,11 @@ export default function RootLayout({
       <ReactQueryClientProvider>
         <html
           lang="en"
-          className={`${GeistSans.variable} bg-slate-800`}
-          data-theme="emerald"
+          className={`${GeistSans.variable} bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 bg-fixed`}
         >
-          <body className="flex h-screen min-h-screen flex-col  text-xl text-white">
+          <body className="min-h-screen bg-fixed">
             <NavBar>
-              <main className="flex flex-1 flex-col items-center">
+              <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
                 {children}
               </main>
             </NavBar>
