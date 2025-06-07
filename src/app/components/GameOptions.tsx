@@ -17,7 +17,7 @@ export const GameOptions = () => {
         <div className="mx-auto grid grid-cols-2 gap-4 sm:w-[400px]">
           {gameStore.options.map((bibleBook, index) => (
             <button
-              disabled={gameStore.correctBook === gameStore.selectedOption}
+              disabled={gameStore.selectedOption !== null}
               key={index}
               className={`flex h-20 items-center justify-center rounded-xl border-2 font-medium shadow-md transition-all hover:scale-[1.02] hover:shadow-lg ${
                 gameStore.selectedOption
@@ -28,7 +28,9 @@ export const GameOptions = () => {
                     : "border-gray-200 hover:border-blue-300"
                   : "border-gray-200 hover:border-blue-300"
               }`}
-              onClick={() => gameStore.selectOption(bibleBook)}
+              onClick={() => {
+                gameStore.selectOption(bibleBook);
+              }}
             >
               {bibleBook.name}
             </button>

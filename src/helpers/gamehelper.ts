@@ -49,20 +49,6 @@ export function getDisplayChoices(
   return allChoicesWithCorrectChoice;
 }
 
-export async function trackScore(
-  correctAnswer: BibleBook,
-  selectedAnswer: BibleBook,
-  score: number,
-  setCurrentScore: (score: number) => void,
-) {
-  if (correctAnswer.name === selectedAnswer.name) {
-    setCurrentScore(score + 1);
-  } else if (correctAnswer.name !== selectedAnswer.name) {
-    await handleUserHighScore(score);
-    setCurrentScore(0);
-  }
-}
-
 export function newBookButtonCheckForAnswer(
   selectedAnswer: BibleBook | null,
   setCurrentScore: (score: number) => void,

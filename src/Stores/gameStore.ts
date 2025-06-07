@@ -6,7 +6,6 @@ import {
   getDisplayChoices,
   getRandomBibleBook,
   getNextBook,
-  trackScore,
 } from "~/helpers/gamehelper";
 import { type BibleBook } from "~/types/biblebooks";
 
@@ -23,6 +22,17 @@ type GameStore = {
   setSelectedOption: (BibleBook: BibleBook | null) => void;
   handleNewCorrectBook: () => void;
   selectOption: (book: BibleBook) => void;
+  currentTimer: number;
+  setTimer: (time: number) => void;
+  gameStart: boolean;
+  setGameStart: (bool: boolean) => void;
+  gameOver: boolean;
+  setGameOver: (bool: boolean) => void;
+  correctCount: number;
+  increaseCorrectCount: () => void;
+  missedCount: number;
+  increaseMissedCount: () => void;
+  resetGame: () => void;
 };
 //TODO: Need to refactor and learn how to subscribe to events with Zustand properly, that way we can handle complex state changes inside of here and not rely upon useEffects.
 export const useGameStore = create(
@@ -40,11 +50,9 @@ export const useGameStore = create(
     },
 
     correctBook: booksOfTheBible[1]!,
-
     setCorrectBook: (bibleBook) => set(() => ({ correctBook: bibleBook })),
 
     currentBook: booksOfTheBible[0]!,
-
     setCurrentBook: (bibleBook) => {
       set(() => ({ currentBook: bibleBook }));
     },
@@ -55,10 +63,9 @@ export const useGameStore = create(
       true,
       booksOfTheBible[0]!,
     ),
-
     setOptions: (bibleBooks) => set(() => ({ options: bibleBooks })),
-    selectedOption: null,
 
+    selectedOption: null,
     setSelectedOption: (bibleBook) =>
       set(() => ({ selectedOption: bibleBook })),
 
@@ -80,10 +87,58 @@ export const useGameStore = create(
     },
 
     selectOption: (book: BibleBook) => {
-      const { correctBook, currentScore, setSelectedOption, setCurrentScore } =
-        get();
+      const {
+        correctBook,
+        setSelectedOption,
+        increaseCorrectCount,
+        increaseMissedCount,
+        gameStart,
+        setGameStart,
+        handleNewCorrectBook,
+      } = get();
       setSelectedOption(book);
-      void trackScore(correctBook, book, currentScore, setCurrentScore);
+      //if game has not started then initate it,
+      if (!gameStart) {
+        setGameStart(true);
+      }
+      if (correctBook === book) {
+        increaseCorrectCount();
+        handleNewCorrectBook();
+      } else {
+        increaseMissedCount();
+      }
     },
+
+    //Time Clock
+    currentTimer: 10,
+    setTimer: (timer) => set(() => ({ currentTimer: timer })),
+
+    //game started
+    gameStart: false,
+    setGameStart: (started: boolean) => set({ gameStart: started }),
+
+    //game Over
+    gameOver: false,
+    setGameOver: (ended: boolean) => set({ gameOver: ended }),
+
+    //correct Count
+    correctCount: 0,
+    increaseCorrectCount: () =>
+      set((state) => ({ correctCount: state.correctCount + 1 })),
+
+    // Missed Count
+    missedCount: 0,
+    increaseMissedCount: () =>
+      set((state) => ({ missedCount: state.missedCount + 1 })),
+
+    resetGame: () =>
+      set(() => ({
+        missedCount: 0,
+        correctCount: 0,
+        selectedOption: null,
+        gameOver: false,
+        gameStart: false,
+        currentTimer: 60,
+      })),
   })),
 );
