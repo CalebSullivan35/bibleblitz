@@ -138,7 +138,7 @@ export const useGameStore = create(
         selectedOption: null,
         gameOver: false,
         gameStart: false,
-        currentTimer: 60,
+        currentTimer: 5,
       })),
   })),
 );
