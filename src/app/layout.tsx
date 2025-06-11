@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import "~/styles/globals.css";
 import { NavBar } from "./components/NavBar";
 import { ReactQueryClientProvider } from "./components/ReactQueryClientProvider";
+import { PostHogProvider } from "./providers";
 export const metadata = {
   title: "Bible Blitz",
   description: "A Bible Drill App",
@@ -26,7 +27,7 @@ export default function RootLayout({
           <body className="min-h-screen bg-fixed">
             <NavBar>
               <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
-                {children}
+                <PostHogProvider>{children}</PostHogProvider>
               </main>
             </NavBar>
           </body>

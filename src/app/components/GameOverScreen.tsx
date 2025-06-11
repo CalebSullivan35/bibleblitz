@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 import { useGameStore } from "~/Stores/gameStore";
 const getMessage = (percent: number) => {
   if (percent >= 99) {
@@ -63,6 +64,7 @@ export const GameOverScreen = () => {
         className="mt-auto rounded-lg bg-blue-600 py-3 text-4xl font-semibold text-white transition-colors"
         onClick={() => {
           gameStore.resetGame();
+          posthog.capture("GamePlayed");
         }}
       >
         Restart
