@@ -107,12 +107,18 @@ export const NavBar = ({ children }: NavBarProps) => {
                 </summary>
                 <ul>
                   <li>
-                    <Link href="/bibleIndex" onClick={() => setIsOpen(false)}>
+                    <Link
+                      href="/bibleIndex/oldtestament"
+                      onClick={() => setIsOpen(false)}
+                    >
                       Old Testament
                     </Link>
                   </li>
                   <li>
-                    <Link href="/bibleIndex" onClick={() => setIsOpen(false)}>
+                    <Link
+                      href="/bibleIndex/newtestament"
+                      onClick={() => setIsOpen(false)}
+                    >
                       New Testament
                     </Link>
                   </li>
