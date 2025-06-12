@@ -97,7 +97,7 @@ export const NavBar = ({ children }: NavBarProps) => {
               <details open>
                 <summary
                   className={`flex items-center rounded-lg px-4 py-3 text-lg transition-colors ${
-                    pathName === "/bibleIndex"
+                    pathName === "/oldtestament" || pathName === "/newtestament"
                       ? "bg-sky-500 text-white"
                       : "text-slate-300 hover:bg-slate-700"
                   }`}
@@ -107,18 +107,12 @@ export const NavBar = ({ children }: NavBarProps) => {
                 </summary>
                 <ul>
                   <li>
-                    <Link
-                      href="/bibleIndex/oldtestament"
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link href="/oldtestament" onClick={() => setIsOpen(false)}>
                       Old Testament
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/bibleIndex/newtestament"
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link href="/newtestament" onClick={() => setIsOpen(false)}>
                       New Testament
                     </Link>
                   </li>
