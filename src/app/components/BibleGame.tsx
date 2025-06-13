@@ -10,7 +10,7 @@ export const BibleGame = () => {
   return (
     <div className="sm:mx-auto">
       <GameToolbar />
-      <div className=" rounded-xl bg-white p-4 shadow-xl sm:h-[550px] sm:w-[600px] sm:p-8">
+      <div className="w-[325px] rounded-xl bg-white p-4 shadow-xl sm:h-[550px] sm:w-[600px] sm:p-8">
         {gameStore.gameOver ? <GameOverScreen /> : <GameScreen />}
       </div>
     </div>
