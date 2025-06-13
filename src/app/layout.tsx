@@ -26,7 +26,7 @@ export default function RootLayout({
         >
           <body className="min-h-screen bg-fixed">
             <NavBar>
-              <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
+              <main>
                 <PostHogProvider>{children}</PostHogProvider>
               </main>
             </NavBar>

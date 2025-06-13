@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { BookOpenText, Menu, SwordsIcon } from "lucide-react";
+import { BookOpenText, FileQuestionIcon, Menu, SwordsIcon } from "lucide-react";
 
 interface NavBarProps {
   children: ReactNode;
@@ -118,6 +118,20 @@ export const NavBar = ({ children }: NavBarProps) => {
                   </li>
                 </ul>
               </details>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className={`flex items-center rounded-lg px-4 py-3 text-lg transition-colors ${
+                  pathName === "/about"
+                    ? "bg-sky-500 text-white"
+                    : "text-slate-300 hover:bg-slate-700"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                <FileQuestionIcon />
+                About
+              </Link>
             </li>
           </ul>
         </div>
