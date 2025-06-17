@@ -1,12 +1,16 @@
 export interface BibleBook {
   name: string;
-  Testament: "Old" | "New";
-  Category:
+  testament: "Old" | "New";
+  division:
     | "Law"
     | "History"
     | "Poetry"
     | "Major Prophet"
     | "Minor Prophet"
     | "Gospel Account"
-    | "Letters";
+    | "Church History"
+    | "Pauline Epistle"
+    | "General Epistle"
+    | "Prophecy";
+  chapters: number;
 }

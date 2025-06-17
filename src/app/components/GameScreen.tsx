@@ -28,12 +28,10 @@ export const GameScreen = () => {
 
         {/* Game Options */}
         <div className="w-full">
-          <h3 className="mb-4 text-center text-xl font-medium text-gray-600">
+          <h3 className="text-center text-xl font-medium text-gray-600">
             What comes next?
           </h3>
-          <div className="mb-4 text-center">
-            <GameFeedback />
-          </div>
+          <GameFeedback />
           <GameOptions />
         </div>
         {/* Next Button */}

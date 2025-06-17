@@ -1,7 +1,6 @@
-import { booksOfTheBible, fakeBibkeBooks } from "~/data/BibleBooks";
+import { booksOfTheBible } from "~/data/BibleBooks";
 import { type BibleBook } from "../types/biblebooks";
 import { sampleSize, shuffle } from "lodash";
-import { handleUserHighScore } from "../db/actions";
 
 export function getRandomBibleBook() {
   const randomIndex = Math.floor(Math.random() * booksOfTheBible.length);
@@ -27,7 +26,7 @@ export function generateAllRandomOptions(
     (x) => x.name !== correctBook.name && x.name !== book.name,
   );
   if (addFakeBooks) {
-    return [...booksOfTheBiblewithoutAnswer, ...fakeBibkeBooks];
+    return [...booksOfTheBiblewithoutAnswer];
   }
 
   return booksOfTheBiblewithoutAnswer;

@@ -1,25 +1,17 @@
 "use client";
 
 import { booksOfTheBible } from "~/data/BibleBooks";
-import { useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
 
 export default function BookPage({ params }: { params: { book: string } }) {
-  const router = useRouter();
   const bookName = params.book
     .replace(/-/g, " ")
     .replace(/\b\w/g, (l) => l.toUpperCase());
   const book = booksOfTheBible.find((b) => b.name === bookName);
 
-  useEffect(() => {
-    if (!book) {
-      router.push("/bibleIndex");
-    }
-  }, [book, router]);
-
   if (!book) {
-    return null;
+    return notFound();
   }
 
   return (
@@ -29,7 +21,7 @@ export default function BookPage({ params }: { params: { book: string } }) {
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-blue-500">{book.name}</h1>
           <p className="mt-2 text-lg text-gray-600">
-            {book.Testament} Testament
+            {book.testament} Testament
           </p>
         </div>
 
