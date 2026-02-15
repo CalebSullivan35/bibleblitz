@@ -25,7 +25,6 @@ export const GameScreen = () => {
             {gameStore.currentBook?.name}
           </h1>
         </div>
-
         {/* Game Options */}
         <div className="w-full">
           <h3 className="text-center text-xl font-medium text-gray-600">

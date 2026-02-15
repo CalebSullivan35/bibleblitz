@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useGameStore } from "~/Stores/gameStore";
+import GameSettingsModal from "../learn/components/GameSettings";
 
 export const GameToolbar = () => {
   const gameStore = useGameStore();
@@ -24,7 +25,8 @@ export const GameToolbar = () => {
     <div className="mb-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
         <div className="text-lg font-semibold text-red-600">
-          ⏳ Time Left: {gameStore.currentTimer}s
+          ⏳ Time Left: {gameStore.currentTimer}
+          <GameSettingsModal />
         </div>
       </div>
       {gameStore.currentScore > 3 && (
