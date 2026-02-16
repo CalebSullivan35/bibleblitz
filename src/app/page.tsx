@@ -54,7 +54,7 @@ export default function HomePage() {
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
                   <feature.icon
-                    className="text-sky-40∏ h-5 w-5 flex-none"
+                    className="text-sky-400 h-5 w-5 flex-none"
                     aria-hidden="true"
                   />
                   {feature.name}
@@ -77,7 +77,7 @@ export default function HomePage() {
             Join thousands of learners who are already mastering scripture with
             Bible Blitz. Start your free learning journey today.
           </p>
-          <div className="flexÍ mt-10 items-center justify-center gap-x-6">
+          <div className="flex mt-10 items-center justify-center gap-x-6">
             <Link
               href="/bibleIndex"
               className="rounded-md bg-sky-500 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
