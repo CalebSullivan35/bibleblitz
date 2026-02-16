@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function GameSettingsModal() {
+export default function GsameSettingsModal() {
   const [formData, setFormData] = useState();
 
   return (
@@ -8,7 +8,9 @@ export default function GameSettingsModal() {
       <button
         className="btn"
         onClick={() =>
-          document.getElementById("game_settings_modal").showModal()
+          (
+            document.getElementById("game_settings_modal") as HTMLDialogElement
+          )?.showModal()
         }
       >
         open modal

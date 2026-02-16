@@ -1,11 +1,13 @@
 "use client";
 
+import { use } from "react";
 import { booksOfTheBible } from "~/data/BibleBooks";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 
-export default function BookPage({ params }: { params: { book: string } }) {
-  const bookName = params.book
+export default function BookPage({ params }: { params: Promise<{ book: string }> }) {
+  const { book: bookParam } = use(params);
+  const bookName = bookParam
     .replace(/-/g, " ")
     .replace(/\b\w/g, (l) => l.toUpperCase());
   const book = booksOfTheBible.find((b) => b.name === bookName);

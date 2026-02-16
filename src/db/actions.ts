@@ -3,10 +3,8 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { userHighScoreTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
-import { revalidatePath } from "node_modules/next/cache";
+import { revalidatePath } from "next/cache";
 import moment from "moment";
-import { useQueryClient } from "@tanstack/react-query";
-import { useQuery } from "node_modules/@tanstack/react-query/build/legacy";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db
@@ -21,7 +19,8 @@ export async function getUserHighScore(userId: string) {
 }
 
 export async function createNewUserHighScore(userId: string, score: number) {
-  const userInfo = await clerkClient.users.getUser(userId);
+  const client = await clerkClient();
+  const userInfo = await client.users.getUser(userId);
   await db.insert(userHighScoreTable).values({
     userId,
     score,
@@ -42,7 +41,7 @@ export async function updateUserHighScore(userId: string, score: number) {
 }
 
 export async function handleUserHighScore(score: number) {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     return;
   }
