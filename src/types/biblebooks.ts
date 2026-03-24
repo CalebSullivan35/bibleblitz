@@ -14,3 +14,11 @@ export interface BibleBook {
     | "Prophecy";
   chapters: number;
 }
+
+export interface BookOverview {
+  slug: string;
+  author: string;
+  dateWritten: string;
+  summary: string;
+  themes: string[];
+}

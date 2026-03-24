@@ -11,3 +11,13 @@ export const userHighScoreTable = pgTable("user_high_score", {
 
 export type UserHighScore = typeof userHighScoreTable.$inferSelect;
 export type newUserHighScore = typeof userHighScoreTable.$inferInsert;
+
+export const feedbackTable = pgTable("feedback", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export type Feedback = typeof feedbackTable.$inferSelect;
+export type NewFeedback = typeof feedbackTable.$inferInsert;

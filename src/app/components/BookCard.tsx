@@ -1,21 +1,47 @@
 import Link from "next/link";
-import { type BibleBook } from "~/types/biblebooks";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import type { BibleBook } from "@/types/biblebooks";
+import { toBookSlug } from "@/lib/slugify";
+import { cn } from "@/lib/utils";
 
-interface BookCardProps {
-  book: BibleBook;
+function divisionColorClass(division: string): string {
+  const map: Record<string, string> = {
+    Law: "border-l-division-law",
+    History: "border-l-division-history",
+    Poetry: "border-l-division-poetry",
+    "Major Prophet": "border-l-division-major-prophet",
+    "Minor Prophet": "border-l-division-minor-prophet",
+    "Gospel Account": "border-l-division-gospel",
+    "Church History": "border-l-division-church-history",
+    "Pauline Epistle": "border-l-division-pauline",
+    "General Epistle": "border-l-division-general",
+    Prophecy: "border-l-division-prophecy",
+  };
+  return map[division] ?? "";
 }
 
-export default function BookCard({ book }: BookCardProps) {
+export function BookCard({ book }: { book: BibleBook }) {
   return (
-    <Link
-      key={book.name}
-      href={`/${book.name.toLowerCase().replace(/\s+/g, "-")}`}
-      className="group relative overflow-hidden rounded-lg bg-white p-3 shadow-md transition-all hover:shadow-lg"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-      <h3 className="relative text-lg font-semibold text-gray-900">
-        {book.name}
-      </h3>
+    <Link href={`/explore/${toBookSlug(book.name)}`}>
+      <Card
+        className={cn(
+          "border-l-2 transition-all hover:scale-[1.02] hover:shadow-md",
+          divisionColorClass(book.division)
+        )}
+        size="sm"
+      >
+        <CardHeader>
+          <CardTitle>{book.name}</CardTitle>
+          <CardDescription>
+            {book.chapters} {book.chapters === 1 ? "chapter" : "chapters"}
+          </CardDescription>
+        </CardHeader>
+      </Card>
     </Link>
   );
 }

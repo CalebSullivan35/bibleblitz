@@ -1,10 +1,9 @@
 "use server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { userHighScoreTable } from "./schema";
+import { userHighScoreTable, feedbackTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import moment from "moment";
 
 export async function getUserHighScore(userId: string) {
   const userHighScore = await db
@@ -34,7 +33,7 @@ export async function updateUserHighScore(userId: string, score: number) {
     .update(userHighScoreTable)
     .set({
       score,
-      createdAt: moment().toDate(),
+      createdAt: new Date(),
     })
     .where(eq(userHighScoreTable.userId, userId))
     .returning();
@@ -61,4 +60,26 @@ export async function getLeaderBoardRankings() {
     .select()
     .from(userHighScoreTable)
     .orderBy(desc(userHighScoreTable.score));
+}
+
+export async function submitFeedback(
+  _prevState: { success: boolean; error?: string } | null,
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
+  const name = formData.get("name");
+  const message = formData.get("message");
+
+  if (typeof name !== "string" || name.trim() === "") {
+    return { success: false, error: "Name is required." };
+  }
+  if (typeof message !== "string" || message.trim() === "") {
+    return { success: false, error: "Message is required." };
+  }
+
+  await db.insert(feedbackTable).values({
+    name: name.trim(),
+    message: message.trim(),
+  });
+
+  return { success: true };
 }
