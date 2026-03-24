@@ -45,6 +45,16 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+    --color-division-law: var(--division-law);
+    --color-division-history: var(--division-history);
+    --color-division-poetry: var(--division-poetry);
+    --color-division-major-prophet: var(--division-major-prophet);
+    --color-division-minor-prophet: var(--division-minor-prophet);
+    --color-division-gospel: var(--division-gospel);
+    --color-division-church-history: var(--division-church-history);
+    --color-division-pauline: var(--division-pauline);
+    --color-division-general: var(--division-general);
+    --color-division-prophecy: var(--division-prophecy);
 }
 
 :root {
@@ -89,14 +99,14 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
+    --primary: oklch(0.795 0.145 70);
+    --primary-foreground: oklch(0.16 0.02 70);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --accent: oklch(0.3 0.04 70);
+    --accent-foreground: oklch(0.9 0.1 70);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
@@ -108,12 +118,25 @@
     --chart-5: oklch(0.269 0 0);
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary: oklch(0.795 0.145 70);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.3 0.04 70);
+    --sidebar-accent-foreground: oklch(0.9 0.1 70);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+}
+
+:root {
+    --division-law: oklch(0.75 0.15 70);
+    --division-history: oklch(0.65 0.15 145);
+    --division-poetry: oklch(0.7 0.15 260);
+    --division-major-prophet: oklch(0.7 0.15 25);
+    --division-minor-prophet: oklch(0.75 0.12 45);
+    --division-gospel: oklch(0.75 0.15 70);
+    --division-church-history: oklch(0.65 0.15 145);
+    --division-pauline: oklch(0.7 0.15 290);
+    --division-general: oklch(0.7 0.12 200);
+    --division-prophecy: oklch(0.7 0.15 25);
 }
 
 @layer base {
@@ -122,6 +145,7 @@
     }
   body {
     @apply bg-background text-foreground;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='white' fill-opacity='0.03'/%3E%3C/svg%3E");
     }
   html {
     @apply font-sans;

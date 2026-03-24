@@ -1,0 +1,85 @@
+"use server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+import { userHighScoreTable, feedbackTable } from "./schema";
+import { db } from ".";
+import { desc, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
+
+export async function getUserHighScore(userId: string) {
+  const userHighScore = await db
+    .select()
+    .from(userHighScoreTable)
+    .where(eq(userHighScoreTable.userId, userId));
+
+  if (userHighScore.length > 1) {
+    throw Error("Found Too Many High Scores");
+  }
+  return userHighScore[0];
+}
+
+export async function createNewUserHighScore(userId: string, score: number) {
+  const client = await clerkClient();
+  const userInfo = await client.users.getUser(userId);
+  await db.insert(userHighScoreTable).values({
+    userId,
+    score,
+    userName: userInfo.username,
+    userImage: userInfo.imageUrl,
+  });
+}
+
+export async function updateUserHighScore(userId: string, score: number) {
+  return db
+    .update(userHighScoreTable)
+    .set({
+      score,
+      createdAt: new Date(),
+    })
+    .where(eq(userHighScoreTable.userId, userId))
+    .returning();
+}
+
+export async function handleUserHighScore(score: number) {
+  const { userId } = await auth();
+  if (!userId) {
+    return;
+  }
+  const currentHighScore = await getUserHighScore(userId);
+  if (!currentHighScore) {
+    await createNewUserHighScore(userId, score);
+  } else {
+    if (score > currentHighScore.score) {
+      await updateUserHighScore(userId, score);
+    }
+  }
+  revalidatePath("/leaderboards");
+}
+
+export async function getLeaderBoardRankings() {
+  return db
+    .select()
+    .from(userHighScoreTable)
+    .orderBy(desc(userHighScoreTable.score));
+}
+
+export async function submitFeedback(
+  _prevState: { success: boolean; error?: string } | null,
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
+  const name = formData.get("name");
+  const message = formData.get("message");
+
+  if (typeof name !== "string" || name.trim() === "") {
+    return { success: false, error: "Name is required." };
+  }
+  if (typeof message !== "string" || message.trim() === "") {
+    return { success: false, error: "Message is required." };
+  }
+
+  await db.insert(feedbackTable).values({
+    name: name.trim(),
+    message: message.trim(),
+  });
+
+  return { success: true };
+}

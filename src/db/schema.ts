@@ -1,0 +1,23 @@
+import { integer, pgTable, text, timestamp, serial } from "drizzle-orm/pg-core";
+
+export const userHighScoreTable = pgTable("user_high_score", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  score: integer("score").notNull(),
+  userName: text("username"),
+  userImage: text("user-image-source"),
+});
+
+export type UserHighScore = typeof userHighScoreTable.$inferSelect;
+export type newUserHighScore = typeof userHighScoreTable.$inferInsert;
+
+export const feedbackTable = pgTable("feedback", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export type Feedback = typeof feedbackTable.$inferSelect;
+export type NewFeedback = typeof feedbackTable.$inferInsert;

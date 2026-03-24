@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "drizzle-orm": "latest",
     "geist": "latest",
+    "lodash": "^4.17.23",
     "lucide-react": "^1.0.1",
     "motion": "latest",
     "next": "latest",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "latest",
     "@tailwindcss/postcss": "latest",
+    "@types/lodash": "^4.17.24",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
