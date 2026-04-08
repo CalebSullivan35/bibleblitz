@@ -12,8 +12,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
+  Shield,
 } from "lucide-react";
-import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
+import { useAuth, useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -177,6 +178,8 @@ function SidebarContent({
 }) {
   const pathname = usePathname();
   const { isSignedIn } = useAuth();
+  const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
 
   return (
     <div className="flex h-full flex-col">
@@ -213,6 +216,14 @@ function SidebarContent({
 
         <div className="my-2 h-px bg-sidebar-border" />
 
+        {isAdmin && (
+          <NavLink
+            item={{ href: "/admin", label: "Admin", icon: <Shield className="size-5" /> }}
+            pathname={pathname}
+            collapsed={collapsed}
+            onClick={onLinkClick}
+          />
+        )}
         {bottomLinks.map((item) => (
           <NavLink
             key={item.href}

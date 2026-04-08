@@ -1,5 +1,5 @@
 "use server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { userHighScoreTable, feedbackTable } from "./schema";
 import { db } from ".";
 import { desc, eq } from "drizzle-orm";
@@ -60,6 +60,19 @@ export async function getLeaderBoardRankings() {
     .select()
     .from(userHighScoreTable)
     .orderBy(desc(userHighScoreTable.score));
+}
+
+export async function getFeedback() {
+  const user = await currentUser();
+
+  if (user?.publicMetadata?.role !== "admin") {
+    return [];
+  }
+
+  return db
+    .select()
+    .from(feedbackTable)
+    .orderBy(desc(feedbackTable.createdAt));
 }
 
 export async function submitFeedback(
